@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KMT2A-MLLT3 AML OS/RFS Risk Stratification Tool</title>
+    <link rel="icon" type="image/png" href="./logo.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">KMT2A-MLLT3 AML</p>
+          <h1 id="pageTitle">KMT2A-MLLT3 AML OS/RFS Risk Stratification Tool</h1>
+          <p class="subtitle" id="pageSubtitle">Estimate OS and RFS relative risk stratification and key contributing factors using diagnosis-time clinical, laboratory, and genetic information.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="segmented compact" role="tablist" aria-label="Language">
+            <button class="segmented-button" type="button" data-lang="zh">中文</button>
+            <button class="segmented-button is-active" type="button" data-lang="en">English</button>
+          </div>
+          <div class="topbar-note" id="researchUseNote">For clinical research reference; interpret together with the full clinical context</div>
+        </div>
+      </header>
+
+      <section class="control-strip" id="controlStrip" aria-label="模型设置">
+        <div class="control-group">
+          <span class="control-label" id="modelControlLabel">Model version</span>
+          <div class="segmented wide" role="tablist" aria-label="Model version">
+            <button class="segmented-button" type="button" data-model="core" id="coreModelButton">Basic model</button>
+            <button class="segmented-button is-active" type="button" data-model="gate" id="gateModelButton">Extended model</button>
+          </div>
+        </div>
+        <div class="action-row">
+          <button class="ghost-button" type="button" id="exampleButton">Use example</button>
+          <button class="ghost-button" type="button" id="clearButton">Clear</button>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <form class="input-panel" id="inputForm" autocomplete="off"></form>
+
+        <aside class="result-panel" aria-live="polite">
+          <div class="research-note" id="resultNote">
+            Results show relative risk scores and their position in the training cohort, not calibrated 1-, 2-, or 3-year survival or relapse probabilities.
+          </div>
+          <div class="endpoint-results" id="endpointResults"></div>
+          <p class="missing-note" id="missingNote"></p>
+        </aside>
+      </section>
+
+      <section class="insight-grid">
+        <article class="chart-panel wide-panel">
+          <div class="panel-heading">
+            <h2 id="distributionTitle">Position in Risk Distribution</h2>
+            <p id="distributionCaption">
+              The curve shows risk-score distribution in the training cohort; dashed lines mark the low/intermediate and intermediate/high cutoffs; the arrow marks this patient.
+            </p>
+          </div>
+          <div class="endpoint-chart-grid" id="distributionGrid"></div>
+        </article>
+
+        <article class="chart-panel wide-panel">
+          <div class="panel-heading">
+            <h2 id="waterfallTitle">Risk Breakdown</h2>
+            <p id="waterfallCaption">Shows how baseline risk and the RAS/TP53-related adjustment combine into the final relative risk.</p>
+          </div>
+          <div class="endpoint-chart-grid" id="waterfallGrid"></div>
+        </article>
+
+        <article class="chart-panel wide-panel">
+          <div class="panel-heading">
+            <h2 id="contributionTitle">Main Risk Drivers</h2>
+            <p id="contributionCaption">Bars show whether each factor increases or decreases the relative risk score for the current input.</p>
+          </div>
+          <div class="endpoint-chart-grid" id="contributionGrid"></div>
+        </article>
+
+        <article class="chart-panel">
+          <div class="panel-heading stacked-heading">
+            <h2 id="correctionTitle">RAS/TP53-Related Adjustment</h2>
+            <p id="correctionCaption">This lists sources of the extended model adjustment; it is not the HR of RAS or TP53 alone.</p>
+          </div>
+          <div class="endpoint-list-grid" id="correctionGrid"></div>
+        </article>
+
+        <article class="chart-panel">
+          <div class="panel-heading stacked-heading">
+            <h2 id="metricTitle">Model Performance Summary</h2>
+            <p id="metricCaption">Apparent discrimination in the study cohort, bootstrap-corrected C-index, and 1-, 2-, and 3-year time-dependent AUC.</p>
+          </div>
+          <div class="metric-table-wrap">
+            <table class="metric-table" id="metricTable"></table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./model_artifacts/model_bundle.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
