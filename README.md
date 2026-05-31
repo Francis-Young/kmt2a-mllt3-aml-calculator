@@ -1,6 +1,6 @@
 # KMT2A-MLLT3 AML OS/RFS Risk Stratification Tool
 
-This is the sanitized static web calculator package for GitHub Pages.
+This is the static web calculator package for GitHub Pages.
 
 ## Contents
 
