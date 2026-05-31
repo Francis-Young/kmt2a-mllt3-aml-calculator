@@ -11,7 +11,6 @@ This is the sanitized static web calculator package for GitHub Pages.
 - `logo.png`
 - `.nojekyll`
 
-The package does not include source CSV files, scripts, output folders, or `model_bundle.json`.
 
 ## Privacy Notes
 
