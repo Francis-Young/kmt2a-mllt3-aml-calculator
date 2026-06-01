@@ -13,7 +13,7 @@
 
   // Synthetic example for public demos; not derived from a study patient.
   const SYNTHETIC_EXAMPLE_INPUT = Object.freeze({
-    age: 42,
+    age: 68,
     sex: "FM",
     disease_type: "primary",
     ecog_kps: 1,
@@ -299,10 +299,10 @@
       high: "高风险",
       lowerRisk: "降低风险",
       higherRisk: "升高风险",
-      coreRisk: "基础风险",
+      coreRisk: "核心模型项",
       responseScore: "治疗反应相关分数",
-      adjustment: "RAS/TP53 风险修正",
-      finalRisk: "最终相对风险",
+      adjustment: "交互修正项",
+      finalRisk: "最终风险",
       notUsed: "未纳入",
       missingPrefix: "部分变量缺失，已按训练集缺失值规则填补：",
       missingTail: (count) => `等 ${count} 项`,
@@ -320,7 +320,7 @@
       hoverPercentile: "训练队列位置",
       hoverGroup: "风险分层",
       waterfallTitle: "风险分解",
-      waterfallCaption: "显示基础风险和 RAS/TP53 相关风险修正如何合成为最终相对风险。",
+      waterfallCaption: "显示核心模型项和扩展交互项如何合成为最终相对风险。",
       coreOnlyWaterfall: "基础模型不包含 RAS/TP53 风险修正。",
       contributionTitle: "主要影响因素",
       contributionCaption: "条形方向表示该因素在当前输入下使相对风险升高或降低。",
@@ -365,10 +365,10 @@
       high: "High risk",
       lowerRisk: "Lower risk",
       higherRisk: "Higher risk",
-      coreRisk: "Baseline risk",
+      coreRisk: "Core-model component",
       responseScore: "Treatment-response related score",
-      adjustment: "RAS/TP53 risk adjustment",
-      finalRisk: "Final relative risk",
+      adjustment: "Interaction component",
+      finalRisk: "Final risk",
       notUsed: "Not used",
       missingPrefix: "Some variables were missing and filled using the training-cohort missing-value rules: ",
       missingTail: (count) => `and ${count} fields`,
@@ -386,7 +386,7 @@
       hoverPercentile: "Training cohort position",
       hoverGroup: "Risk group",
       waterfallTitle: "Risk Breakdown",
-      waterfallCaption: "Shows how baseline risk and the RAS/TP53-related adjustment combine into the final relative risk.",
+      waterfallCaption: "Shows how the core-model component and extended interaction component combine into the final relative risk.",
       coreOnlyWaterfall: "The basic model does not include the RAS/TP53 risk adjustment.",
       contributionTitle: "Main Risk Drivers",
       contributionCaption: "Bars show whether each factor increases or decreases the relative risk score for the current input.",
@@ -972,8 +972,8 @@
     const yScale = (value) => plotBottom - ((value - min + pad) / (max - min + pad * 2 || 1)) * (plotBottom - plotTop);
     const baseline = yScale(0);
     const barWidth = 92;
-    const gap = 120;
-    const startX = 120;
+    const gap = 170;
+    const startX = 110;
     const geometry = steps.map((step, index) => {
       const x = startX + index * gap;
       const yStart = yScale(step.start);
@@ -1006,7 +1006,7 @@
       .join("");
     container.innerHTML = `
       <svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(text("waterfallTitle"))}">
-        <line x1="72" x2="600" y1="${baseline}" y2="${baseline}" stroke="#aeb8c2" stroke-width="1"></line>
+        <line x1="72" x2="650" y1="${baseline}" y2="${baseline}" stroke="#aeb8c2" stroke-width="1"></line>
         <text class="svg-label" x="36" y="${baseline + 4}" text-anchor="middle">0</text>
         ${connectors}
         ${bars}
